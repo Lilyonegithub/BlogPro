@@ -13,6 +13,7 @@ from django.core.wsgi import get_wsgi_application
 
 # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BlogPro.settings')
 profile = os.environ.get('BLOGPRO_PROFILE', 'develop')
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BlogPro.setting.%s' %profile)
-
+print("profile2:", profile)
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BlogPro.settings.%s' %profile)
+print('settings2:', os.environ.get('DJANGO_SETTINGS_MODULE'))
 application = get_wsgi_application()
