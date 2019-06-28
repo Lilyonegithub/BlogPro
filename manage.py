@@ -5,9 +5,7 @@ import sys
 if __name__ == '__main__':
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BlogPro.settings')
     profile = os.environ.get('BLOGPRO_PROFILE', 'develop')
-    print("profile1:", profile)
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'BlogPro.settings.%s' % profile)
-    print('settings1:', os.environ.get('DJANGO_SETTINGS_MODULE'))
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
