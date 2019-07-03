@@ -24,12 +24,13 @@ from config.views import links
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('superadmin/', admin.site.urls),
-    path('admin/', custom_site.urls),
+    path('superadmin/', admin.site.urls, name='super-admin'),
+    path('admin/', custom_site.urls, name='admin'),
 
-    path('', post_list),
-    re_path('^category/(?P<category_id>\d+)/$', post_list),
-    re_path('^tag/(?P<tag_id>\d+)/$', post_list),
-    re_path('^post/(?P<post_id>\d+).html$', post_detail),
-    path('links', links)
+    path('', post_list, name='index'),
+    re_path('^category/(?P<category_id>\d+)/$', post_list, name='category-list'),
+    re_path('^tag/(?P<tag_id>\d+)/$', post_list, name='tag-list'),
+    re_path('^post/(?P<post_id>\d+).html$', post_detail, name='post-detail'),
+    path('links', links, name='links'),
+
 ]
