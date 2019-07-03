@@ -82,6 +82,11 @@ class Post(models.Model):
     owner = models.ForeignKey(User, verbose_name='作者', on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
 
+    # 访问量（PageView页面浏览量或点击量）
+    pv = models.PositiveIntegerField(default=1, verbose_name='访问量')
+    # 独立访问量（Unique Visitor 访问网站的一台电脑客户端为一个访客）
+    uv = models.PositiveIntegerField(default=1, verbose_name='独立访问量')
+
     class Meta:
         verbose_name = verbose_name_plural = '文章'
         ordering = ['-id']   # 根据id降序排列
@@ -122,5 +127,8 @@ class Post(models.Model):
         queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
         return queryset
 
-
+    # 最热文章
+    @classmethod
+    def host_posts(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL).only('id', 'title').order_by('-pv')
 
