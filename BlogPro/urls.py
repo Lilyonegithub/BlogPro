@@ -18,7 +18,9 @@ from django.urls import path, re_path
 
 from .custom_site import custom_site
 
-from blog.views import post_list, post_detail
+# from blog.views import post_list, post_detail
+# from blog.views import PostList, PostDetail
+from blog.views import IndexView, CategoryView, TagView, PostDetailView
 from config.views import links
 
 
@@ -27,10 +29,11 @@ urlpatterns = [
     path('superadmin/', admin.site.urls, name='super-admin'),
     path('admin/', custom_site.urls, name='admin'),
 
-    path('', post_list, name='index'),
-    re_path('^category/(?P<category_id>\d+)/$', post_list, name='category-list'),
-    re_path('^tag/(?P<tag_id>\d+)/$', post_list, name='tag-list'),
-    re_path('^post/(?P<post_id>\d+).html$', post_detail, name='post-detail'),
+    # path('', post_list, name='index'),
+    path('', IndexView.as_view(), name='index'),
+    re_path('^category/(?P<category_id>\d+)/$', CategoryView.as_view(), name='category-list'),
+    re_path('^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name='tag-list'),
+    re_path('^post/(?P<post_id>\d+).html$', PostDetailView.as_view(), name='post-detail'),
     path('links', links, name='links'),
 
 ]
