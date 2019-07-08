@@ -1,0 +1,12 @@
+ .content-body{
+    border:1px solid #DCDCDC;
+    padding-left: 15px;
+    margin-bottom: 2%;
+ }
+.content-span{
+    padding: 0 1%;
+}
+.hr-color{
+    background-color: #DCDCDC;
+    height: 1px;
+}
