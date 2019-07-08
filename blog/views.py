@@ -98,14 +98,6 @@ class IndexView(CommonViewMixin, ListView):
     context_object_name = 'post_list'
     template_name = 'blog/list.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context.update({
-    #         'sidebars': SideBar.get_all(),
-    #     })
-    #     context.update(Category.get_navs())
-    #     return context
-
 
 class CategoryView(IndexView):
     def get_context_data(self, **kwargs):
