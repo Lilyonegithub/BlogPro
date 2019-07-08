@@ -138,7 +138,7 @@ class TagView(IndexView):
     def get_queryset(self):
         queryset = super().get_queryset()
         tag_id = self.kwargs.get('tag_id')
-        tag = queryset.filter(tag_id=tag_id)
+        tag = queryset.filter(tag__id=tag_id)
         return tag
 
 
