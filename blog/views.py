@@ -7,6 +7,9 @@ from django.views.generic import ListView, DetailView
 
 from django.shortcuts import get_object_or_404
 
+from django.db.models import Q
+
+
 # Create your views here.
 #
 #
@@ -97,6 +100,33 @@ class IndexView(CommonViewMixin, ListView):
     paginate_by = 2
     context_object_name = 'post_list'
     template_name = 'blog/list.html'
+
+
+# 根据文章标题或文章内容筛选文章
+class SearchView(IndexView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        keywords = self.request.GET.get('keywords')
+        if keywords:
+            queryset = queryset.filter(Q(title__contains=keywords) | Q(desc__contains=keywords))
+        return queryset
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        context.update({
+            'keywords': self.request.GET.get('keywords', '')
+        })
+        return context
+
+
+# 根据作者筛选文章
+class AuthorView(IndexView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        author_id = self.kwargs.get('owner_id')
+        if author_id:
+            queryset = queryset.filter(owner_id=author_id)
+        return queryset
 
 
 class CategoryView(IndexView):
