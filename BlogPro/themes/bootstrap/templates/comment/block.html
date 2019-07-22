@@ -1,0 +1,26 @@
+ {# 评论  #}
+<hr/>
+{# 写评论 #}
+<h3>评论</h3>
+<div>
+    <form class="form-group" action="{% url 'comment' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="target" value="{{ target }}">
+        {{ comment_form }}
+        <button type="submit" class="btn btn-default">写好了</button>
+    </form>
+</div>
+{#  评论列表  #}
+<ul class="list-group">
+    {% for comment in comment_list %}
+        <li class="list-group-item">
+            <div>
+                <a href="{{ comment.website }}">{{ comment.nickname }}</a>
+                <span>{{ comment.created_time }}</span>
+            </div>
+            <div>
+                {{ comment.content }}
+            </div>
+        </li>
+    {% endfor %}
+</ul>
