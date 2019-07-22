@@ -22,6 +22,7 @@ from .custom_site import custom_site
 # from blog.views import PostList, PostDetail
 from blog.views import IndexView, SearchView, AuthorView, CategoryView, TagView, PostDetailView
 from config.views import LinkView
+from comment.views import CommentView
 
 
 urlpatterns = [
@@ -37,4 +38,5 @@ urlpatterns = [
     re_path('^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name='tag-list'),
     re_path('^post/(?P<post_id>\d+).html$', PostDetailView.as_view(), name='post-detail'),
     path('links/', LinkView.as_view(), name='links'),
+    path('comment/', CommentView.as_view(), name='comment')
 ]
