@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+import mistune
 # Create your models here.
 
 
@@ -87,6 +88,9 @@ class Post(models.Model):
     # 独立访问量（Unique Visitor 访问网站的一台电脑客户端为一个访客）
     uv = models.PositiveIntegerField(default=1, verbose_name='独立访问量')
 
+    # 存储content经过markdown处理后的内容, 不可编辑，因为非人为处理
+    content_html = models.TextField(blank=True, editable=False, verbose_name='正文html代码')
+
     class Meta:
         verbose_name = verbose_name_plural = '文章'
         ordering = ['-id']   # 根据id降序排列
@@ -131,4 +135,10 @@ class Post(models.Model):
     @classmethod
     def host_posts(cls):
         return cls.objects.filter(status=cls.STATUS_NORMAL).only('id', 'title').order_by('-pv')
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        self.content_html = mistune.markdown(self.content)
+        super(Post, self).save(force_insert=False, force_update=False,
+                               using=None, update_fields=None)
 

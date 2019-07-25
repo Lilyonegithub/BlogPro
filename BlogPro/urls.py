@@ -24,6 +24,7 @@ from blog.views import IndexView, SearchView, AuthorView, CategoryView, TagView,
 from config.views import LinkView
 from comment.views import CommentView
 
+from blog.rss import LatestPostFeed
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -38,5 +39,8 @@ urlpatterns = [
     re_path('^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name='tag-list'),
     re_path('^post/(?P<post_id>\d+).html$', PostDetailView.as_view(), name='post-detail'),
     path('links/', LinkView.as_view(), name='links'),
-    path('comment/', CommentView.as_view(), name='comment')
+    path('comment/', CommentView.as_view(), name='comment'),
+
+    path('rss/', LatestPostFeed(), name='rss'),
+
 ]
