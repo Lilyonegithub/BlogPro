@@ -1,7 +1,17 @@
 {% extends './base.html' %}
+{% load static %}
 {% load comment_block %}
 
 {% block title %}{{ post.title }}{% endblock %}
+
+{% block extra_head %}
+{#    <link rel="stylesheet" href="{% static 'css/googlecode.css' %}">#}
+{#    <script src="{% static 'js/highlight.js' %}"></script>#}
+{#    <script>hljs.initHighlightingOnLoad()</script>#}
+    <link rel="stylesheet" href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}
 
 {% block main %}
     {% if post %}
@@ -16,7 +26,10 @@
     </div>
     <hr class="hr-color"/>
     <p>
-        {{ post.content }}
+{#        {{ post.content }}#}
+        {% autoescape off %}
+        {{ post.content_html }}
+        {% endautoescape %}
     </p>
     {% endif %}
     {# 展示评论    #}
